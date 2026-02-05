@@ -75,6 +75,7 @@ class SystemPromptSkill:
         if not profile:
             raise ValueError(f"Profile '{profile_key}' not found")
         
+        self.profile_manager.current_profile = profile
         style = self.characteristic_manager.get_random_style()
         return self._format_prompt(profile, style)
     
@@ -86,6 +87,7 @@ class SystemPromptSkill:
         if not style:
             raise ValueError(f"Style '{style_key}' not found")
         
+        self.characteristic_manager.current_style = style
         profile = self.profile_manager.get_random_profile()
         return self._format_prompt(profile, style)
     
@@ -101,6 +103,8 @@ class SystemPromptSkill:
         if not style:
             raise ValueError(f"Style '{style_key}' not found")
         
+        self.profile_manager.current_profile = profile
+        self.characteristic_manager.current_style = style
         return self._format_prompt(profile, style)
     
     def _format_prompt(self, profile: AgentProfile, style: TalkingStyle) -> str:
